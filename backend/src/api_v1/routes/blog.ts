@@ -1,21 +1,22 @@
 import { Hono } from "hono";
 
-export const blogRouter = new Hono();
+const blogRouter = new Hono();
 
 
-blogRouter.post("/",(c)=>{
+// blogRouter.post("/",(c)=>{
 
-})
+// })
 
-blogRouter.put("/", (c)=>{
+// blogRouter.put("/", (c)=>{
     
-})
+// })
 
-blogRouter.get("/:id", (c)=>{
+// blogRouter.get("/:id", (c)=>{
 
-})
+// })
 
-blogRouter.get("/bulk", (c)=>{
+// blogRouter.get("/bulk", (c)=>{
 
-})
+// })
 
+export default blogRouter;

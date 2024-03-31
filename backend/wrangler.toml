@@ -1,10 +1,11 @@
 name = "backend"
 compatibility_date = "2023-12-01"
 
-# [vars]
+ [vars]
 # MY_VAR = "my-variable"
 
-DATABASE_URL="postgresql://medium_owner:QrDdP3X7UyKW@ep-fragrant-breeze-a4tlxf82-pooler.us-east-1.aws.neon.tech/medium?sslmode=require"
+DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiZDdlZWE3OWYtM2UxNS00MGJjLTllMzEtNDk5NzVlYTBhNWFkIiwidGVuYW50X2lkIjoiMWFjYmE0YjBlYjJkNjJkMmQ3MmU0MzMzODBiMDA1YmE5ODg0Y2UwNTlmNTU0NjQ5Mzg1YTIzODdjZjZmNGM4ZSIsImludGVybmFsX3NlY3JldCI6IjFmMmJlZTdiLWY5NjQtNDM5Yy04NWZlLTk5ZjMwMjJmOTY5YyJ9.QOsN2m7X2LFHIbrCImUIIirlNr6vLw-Y66RcifHv1tI"
+JWT_SECRET= "IamBored"
 
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
