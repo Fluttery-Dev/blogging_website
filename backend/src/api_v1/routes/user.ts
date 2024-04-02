@@ -59,6 +59,7 @@ userRouter.post("/signIn", async (c)=>{
 
     } catch (error) {
         c.status(403);
+        console.log(error);
         return c.text("nah wrong input");
     }
 })
