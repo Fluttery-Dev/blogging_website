@@ -20,7 +20,7 @@ const blogRouter = new Hono<{
 
 blogRouter.use("/*", async (c,next)=>{
 
-    const jwt = c.req.header('Authorization');
+    const jwt = c.req.header('authorization') ||  "";
 
     if(!jwt){
         c.status(401);

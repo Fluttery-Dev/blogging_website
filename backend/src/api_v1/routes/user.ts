@@ -1,6 +1,5 @@
 import { Hono  } from "hono";
 import { PrismaClient } from '@prisma/client/edge'
-import { withAccelerate } from '@prisma/extension-accelerate'
 import { sign,decode, verify } from "hono/jwt";
 
 
@@ -16,9 +15,10 @@ userRouter.post("/signUp", async (c)=>{
     
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
-    }).$extends(withAccelerate());
+    });
 
     const body = await c.req.json();
+    console.log(body);
 
     try {
         const user = await prisma.user.create({
@@ -28,6 +28,7 @@ userRouter.post("/signUp", async (c)=>{
                 name: body.name,
             }
         });
+        console.log(user);
         const token = await sign({id: user.id}, c.env.JWT_SECRET);
         return c.json({token: token});
     } catch (error) {
@@ -43,17 +44,20 @@ userRouter.post("/signIn", async (c)=>{
     const data = await c.req.json();
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
-    }).$extends(withAccelerate());
+    });
 
     try {
         
-        const user = await prisma.user.findFirstOrThrow({
+        const user = await prisma.user.findFirst({
             where:{
                 email: data.email,
                 password: data.password,
             }
         })
-
+        if(!user) {
+            c.status(403);
+            return c.json({message: "User Not found"});
+        }
         const token = await sign({id: user.id}, c.env.JWT_SECRET);
         return c.json({token: token});
 
