@@ -1,6 +1,8 @@
 import { Hono  } from "hono";
 import { PrismaClient } from '@prisma/client/edge'
-import { sign,decode, verify } from "hono/jwt";
+import { sign } from "hono/jwt";
+import { signInInput, signUpInput } from "@viper_08/medium-common";
+import { withAccelerate } from "@prisma/extension-accelerate";
 
 
 const userRouter = new Hono<{
@@ -15,20 +17,38 @@ userRouter.post("/signUp", async (c)=>{
     
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
-    });
+    }).$extends(withAccelerate());
 
     const body = await c.req.json();
+
+    const {success} = signUpInput.safeParse(body);
+
+    if(!success){
+        c.status(403);
+        return c.json({message: "wrong inputs"});
+    }
+
     console.log(body);
+    const user = await prisma.user.findFirst({
+        where:{
+            email: body.userName,
+        }
+    })
+    console.log(user);
+    if(user) {
+        c.status(403);
+        return c.json({message: "User already exists"});
+    }
 
     try {
         const user = await prisma.user.create({
             data:{
-                email: body.email,
+                email: body.userName,
                 password: body.password,
                 name: body.name,
             }
         });
-        console.log(user);
+
         const token = await sign({id: user.id}, c.env.JWT_SECRET);
         return c.json({token: token});
     } catch (error) {
@@ -41,16 +61,26 @@ userRouter.post("/signUp", async (c)=>{
 
 userRouter.post("/signIn", async (c)=>{
     
-    const data = await c.req.json();
+    
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
-    });
+    }).$extends(withAccelerate());
+
+
 
     try {
+        const data = await c.req.json();
+
+        const {success} = signInInput.safeParse(data);
+    
+        if(!success){
+            c.status(403);
+            return c.json({message: "wrong inputs"});
+        }
         
         const user = await prisma.user.findFirst({
             where:{
-                email: data.email,
+                email: data.userName,
                 password: data.password,
             }
         })
