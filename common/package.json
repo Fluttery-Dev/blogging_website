@@ -1,0 +1,11 @@
+{
+  "name": "@viper_08/medium-common",
+  "version": "1.0.0",
+  "description": "for my blogging-web project",
+  "main": "./dist/index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "zod": "^3.22.4"
+  }
+}
