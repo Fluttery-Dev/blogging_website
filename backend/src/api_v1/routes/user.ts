@@ -28,13 +28,11 @@ userRouter.post("/signUp", async (c)=>{
         return c.json({message: "wrong inputs"});
     }
 
-    console.log(body);
     const user = await prisma.user.findFirst({
         where:{
             email: body.userName,
         }
     })
-    console.log(user);
     if(user) {
         c.status(403);
         return c.json({message: "User already exists"});
