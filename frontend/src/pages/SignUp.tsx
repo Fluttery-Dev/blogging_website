@@ -9,12 +9,12 @@ import { SERVER_URL } from "../config";
 
 export const SignUp = ()=>{
     
-    return <div className="grid lg:grid-cols-2 ">
+    return( <div className="grid lg:grid-cols-2 ">
         <CreateAccountForm/>     
         <div className="sm: hidden lg:block">
             <Quote/>
         </div>
-    </div>
+    </div>)
 }
 
 const CreateAccountForm = ()=>{
@@ -57,8 +57,12 @@ const CreateAccountForm = ()=>{
                     <BigButton text="Sign Up" onChange={async ()=>{
                         
                         const res = await axios.post(`${SERVER_URL}/api/v1/user/signUp`, userInputs, {validateStatus:_ =>true});
-                        alert(res.data.message);
-                        
+                        if(res.status >= 200 && res.status<300 ){
+                            localStorage.setItem('token', res.data.token);
+                        }
+                        else{
+                            alert(res.data.message);
+                        }
                     }}></BigButton>  
                 </div>
             </div>

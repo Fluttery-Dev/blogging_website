@@ -14,7 +14,7 @@ const userRouter = new Hono<{
 
 
 userRouter.post("/signUp", async (c)=>{
-    
+  
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
