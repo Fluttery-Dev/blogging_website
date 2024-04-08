@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { SignUp } from './pages/SignUp'
 import { SignIn } from './pages/SingIn'
 import { Blog } from './pages/Blog'
+import { CreateBlog } from './pages/create_blogs'
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/blog/:id" element={<Blog />} />
+          <Route path='/blog/create' element={<CreateBlog/>}/>
         </Routes>
       </BrowserRouter>
     </>

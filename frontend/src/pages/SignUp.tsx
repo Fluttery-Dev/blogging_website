@@ -4,7 +4,7 @@ import { LabelledInput } from "../components/labelled_input";
 import { BigButton } from "../components/big_button";
 import { useState } from "react";
 import { singUpSchema } from "@viper_08/medium-common";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { SERVER_URL } from "../config";
 
 export const SignUp = ()=>{
