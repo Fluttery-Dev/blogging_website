@@ -3,7 +3,7 @@ import { LabelledInput } from "../components/labelled_input";
 import { BigButton } from "../components/big_button";
 import axios from "axios";
 import { SERVER_URL } from "../config";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Quote } from "../components/quote";
 
@@ -21,6 +21,7 @@ export const SignIn = ()=>{
 
 
 const LoginAccountForm = ()=>{
+    const navigate = useNavigate();
     const [userInputs, setUserInputs] = useState<signInSchema>({
 
         password: "",
@@ -54,6 +55,7 @@ const LoginAccountForm = ()=>{
                         const res = await axios.post(`${SERVER_URL}/api/v1/user/signIn`, userInputs, {validateStatus:_ =>true});
                         if(res.status >= 200 && res.status<300 ){
                             localStorage.setItem('token', res.data.token);
+                            navigate("/");
                         }
                         else{
                             alert(res.data.message);

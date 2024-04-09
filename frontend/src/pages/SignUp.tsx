@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Quote } from "../components/quote";
 import { LabelledInput } from "../components/labelled_input";
 import { BigButton } from "../components/big_button";
@@ -18,6 +18,7 @@ export const SignUp = ()=>{
 }
 
 const CreateAccountForm = ()=>{
+    const navigate = useNavigate();
     const [userInputs, setUserInputs] = useState<singUpSchema>({
         name: "",
         password: "",
@@ -59,6 +60,7 @@ const CreateAccountForm = ()=>{
                         const res = await axios.post(`${SERVER_URL}/api/v1/user/signUp`, userInputs, {validateStatus:_ =>true});
                         if(res.status >= 200 && res.status<300 ){
                             localStorage.setItem('token', res.data.token);
+                            navigate("/");
                         }
                         else{
                             alert(res.data.message);

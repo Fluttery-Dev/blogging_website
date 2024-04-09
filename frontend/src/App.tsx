@@ -15,7 +15,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/blog/:id" element={<Blog />} />
           <Route path='/blog/create' element={<CreateBlog/>}/>
-          <Route path='/dashboard' element={<ViewBlogs/>}/>
+          <Route path='/' element={<ViewBlogs/>}/>
         </Routes>
       </BrowserRouter>
     </>
