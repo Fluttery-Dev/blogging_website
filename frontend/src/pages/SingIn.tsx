@@ -22,6 +22,7 @@ export const SignIn = ()=>{
 
 const LoginAccountForm = ()=>{
     const navigate = useNavigate();
+    if(localStorage.getItem('token')) navigate("/blogs")
     const [userInputs, setUserInputs] = useState<signInSchema>({
 
         password: "",
@@ -30,7 +31,7 @@ const LoginAccountForm = ()=>{
 
     return (
         <div className=" h-screen w-full bg-white flex justify-center items-center">
-            <div className=" h-3/5 p-3 flex flex-col">
+            <div className=" h-2/5 p-3 flex flex-col">
                 <div className="text-center py-2"> 
                     <div className="title text-4xl font-bold py-3">Login to your Account</div>
                     <div className="text-slate-500 text-lg font-semibold">Already have an account? <Link to={"/signup"} className="underline">SignUp</Link></div>
